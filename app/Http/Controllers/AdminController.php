@@ -108,11 +108,11 @@ class AdminController extends Controller
         // perhitungan
         foreach($mahasiswas as $mahasiswa){
             $mahasiswa->score = (
-                (calcGpa($mahasiswa->gpa)* $bobot_main['gpa'])+//0.161)+
-                (calcPrestasiAkademik($mahasiswa->prestasi_akademik)*  $bobot_main['prestasi_akademik'])+//0.099 )+
+                (calcGpa($mahasiswa->gpa)* $bobot_main['gpa'])+ //0.161)+
+                (calcPrestasiAkademik($mahasiswa->prestasi_akademik)*  $bobot_main['prestasi_akademik'])+ //0.099 )+
                 (calcPrestasiNon($mahasiswa->prestasi_non)* $bobot_main['prestasi_non'])+ //0.062)+ 
-                (calcPendapatanOrtu($mahasiswa->pendapatan_ortu)*  $bobot_main['pendapatan_ortu'])+//0.416)+
-                (calcTanggungan($mahasiswa->tanggungan)*  $bobot_main['tanggungan'])//0.262 )
+                (calcPendapatanOrtu($mahasiswa->pendapatan_ortu)*  $bobot_main['pendapatan_ortu'])+ //0.416)+
+                (calcTanggungan($mahasiswa->tanggungan)*  $bobot_main['tanggungan']) //0.262 )
             );
         }
 

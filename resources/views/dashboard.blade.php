@@ -14,6 +14,21 @@
             </div>
         </div>
         <br>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-72 text-white">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
+                <div class="p-6">
+                    <form action="" method="" class="p-8">
+                    <label for="kuota">Batas Kuota Penerima Beasiswa: </label>
+                    
+                    <input type="text" class="rounded-md p-2 bg-gray-700 focus:bg-gray-600" placeholder="Masukkan batas kuota...">
+                    <button type="submit" class=" text-white rounded-md" style="background-color: rgb(0, 72, 98); padding:10px">Kirim</button>
+                </form>
+                </div>
+                
+            </div>
+
+        </div>
+        <br>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-col justify-center items-center dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
             <h1 class="mx-auto text-white text-2xl font-bold mb-6">Daftar Mahasiswa</h1>

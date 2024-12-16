@@ -12,7 +12,7 @@
             <nav class="flex items-center justify-between mx-6">
                 <!-- Logo or Brand Name -->
                 <div class="text-lg font-bold">
-                    <a href="/" class="hover:text-gray-400">My Bee</a>
+                    <a href="/" class="hover:text-gray-400">SPK-Beasiswa</a>
                 </div>
 
                
