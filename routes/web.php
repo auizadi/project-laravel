@@ -24,9 +24,11 @@ require __DIR__.'/auth.php';
 
 Route::post('post', [MahasiswaController::class, 'store'])->name('user.store');
 Route::get('/pengumuman', [MahasiswaController::class, 'pengumuman'])->name('pengumuman');
+Route::get('/pengumuman/{id?}', [MahasiswaController::class, 'pengumuman'])->name('pengumumanid');
 
 
 Route::middleware(['auth', 'adminMiddleware'])->group(function (){
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/aksiAdmin/{id}', [AdminController::class, 'show'])->name('adminshow');
+    Route::post('dashboard', [AdminController::class, 'setBeasiswa'])->name('setBeasiswa');
 });

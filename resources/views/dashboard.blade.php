@@ -4,7 +4,12 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+    <div class="mx-12 my-24">
+        @if (session('success'))
+            <div class="p-6 text-white font-medium rounded-md border w-1/3 border-white boder-">{{ session('success') }}</div>
+        @endif
+    </div>
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-72">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -14,13 +19,18 @@
             </div>
         </div>
         <br>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-72 text-white">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
+            
+      
+       
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-72">
+            
+            <div class=" bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
+                
                 <div class="p-6">
-                    <form action="" method="" class="p-8">
-                    <label for="kuota">Batas Kuota Penerima Beasiswa: </label>
-                    
-                    <input type="text" class="rounded-md p-2 bg-gray-700 focus:bg-gray-600" placeholder="Masukkan batas kuota...">
+                    <form action="{{ route('setBeasiswa') }}" method="POST" class="p-8">
+                        @csrf
+                        <label for="kuota" class="text-white">Batas Kuota Penerima Beasiswa: </label>
+                        <input type="number" name="jumlah" id="jumlah" min="0" class="rounded-md p-2 dark:bg-gray-700 focus:bg-gray-500 text-white" placeholder="Masukkan batas kuota...">
                     <button type="submit" class=" text-white rounded-md" style="background-color: rgb(0, 72, 98); padding:10px">Kirim</button>
                 </form>
                 </div>
@@ -31,8 +41,8 @@
         <br>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-col justify-center items-center dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-            <h1 class="mx-auto text-white text-2xl font-bold mb-6">Daftar Mahasiswa</h1>
-            <table class=" text-white border-collapse border border-gray-200 dark:border-gray-700 rounded-md">
+            <h1 class="mx-auto text-white text-9xl font-bold mb-6">Daftar Mahasiswa</h1>
+            <table class=" text-white text-center border-collapse border border-gray-200 dark:border-gray-700 rounded-md">
             <thead>
                 <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
                     {{-- <th class="border border-gray-200 dark:border-gray-600 px-4 py-2">No.</th> --}}
@@ -79,8 +89,10 @@
                 @endforelse
             </tbody>
         </table>
+       
             </div>
         </div>
         
     </div>
+  
 </x-app-layout>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -116,7 +117,7 @@ class AdminController extends Controller
             );
         }
 
-        $mahasiswas = $mahasiswas->sortByDesc('score');
+        $mahasiswas =  $mahasiswas->sortByDesc('score');
         return view ('dashboard', compact('mahasiswas'));
     }
 
@@ -125,5 +126,18 @@ class AdminController extends Controller
         
         return view('aksiAdmin', compact('mahasiswa'));
 
+    }
+
+    public function setBeasiswa(Request $request){
+        $request -> validate([
+            'jumlah' => 'required | integer |min:1'
+        ]);
+
+        Setting::updateOrCreate(
+            ['key' => 'jumlah_penerima_beasiswa'],
+            ['value' => $request->input('jumlah')]
+        );
+
+        return redirect()->back()->with('success', 'Pengaturan kuota berhasil!');
     }
 }

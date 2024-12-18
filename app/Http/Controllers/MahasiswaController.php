@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MahasiswaController extends Controller
 {
@@ -44,7 +46,8 @@ class MahasiswaController extends Controller
     return to_route('user.dashboard')->with('success', 'Anda berhasil mendaftar!');
 }
 
-public function pengumuman(){
+public function pengumuman(Request $request, $id=null){
+    $jumlah_penerima = Setting::where('key', 'jumlah_penerima_beasiswa')->value('value');
     $mahasiswas = Mahasiswa::all();
     $bobot_main = [
         'gpa' => 0.161,
@@ -150,8 +153,22 @@ public function pengumuman(){
         );
     }
 
-    $mahasiswas = $mahasiswas->sortByDesc('score')->take(3);
-    return view('pengumuman', compact('mahasiswas'));
+    $mahasiswas = $mahasiswas->sortByDesc('score')->take($jumlah_penerima);
+    if ($request->has('download') && $request->download === 'pdf' && $id) {
+        $mahasiswas = Mahasiswa::findOrFail($id);
+        $mahasiswas->score = (
+            (calcGpa($mahasiswa->gpa)* $bobot_main['gpa'])+ //0.161)+
+            (calcPrestasiAkademik($mahasiswa->prestasi_akademik)*  $bobot_main['prestasi_akademik'])+ //0.099 )+
+            (calcPrestasiNon($mahasiswa->prestasi_non)* $bobot_main['prestasi_non'])+ //0.062)+ 
+            (calcPendapatanOrtu($mahasiswa->pendapatan_ortu)*  $bobot_main['pendapatan_ortu'])+ //0.416)+
+            (calcTanggungan($mahasiswa->tanggungan)*  $bobot_main['tanggungan']) //0.262 )
+        );
+
+        $pdf = Pdf::loadView('pdf.cetakBukti', ['mahasiswas' => $mahasiswas]);
+        return $pdf->stream('bukti_penerima_beasiswa_'.$mahasiswa->nama.'.pdf');
+    }
+    return view('pengumuman', compact('mahasiswas', 'jumlah_penerima'));
 }
+
 
 }
